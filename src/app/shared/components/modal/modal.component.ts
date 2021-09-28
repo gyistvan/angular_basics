@@ -1,12 +1,4 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ElementRef,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { CourseAction } from '../../interfaces/courseActions';
 import { ModalSettings } from '../../interfaces/modalSettings';

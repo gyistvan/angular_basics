@@ -1,12 +1,12 @@
-<div [ngClass]="{'app-modal': isOpen, 'app-modal-closed' : !isOpen}">
-    <div class="app-modal-body col-10 col-md-3 text-center">
-        <div class="d-flex justify-content-end">
-            <app-button [iconName]="'times'" [buttonSize]="'normal'" (click)="close()"></app-button>
-        </div>
-        <h3>{{ title }}</h3>
-        <p class="p-3 mt-2 mb-2">{{ message }}</p>
-        <app-button [btnText]="okButtonText" (click)="confirm()"></app-button>
-        <app-button [btnText]="cancelButtonText" (click)="close()"></app-button>
+<div [ngClass]="{ 'app-modal': isOpen, 'app-modal-closed': !isOpen }">
+  <div class="app-modal-body col-10 col-md-3 text-center">
+    <div class="d-flex justify-content-end">
+      <app-button [iconName]="'times'" [buttonSize]="'normal'" (click)="close()"></app-button>
     </div>
+    <h3>{{ title }}</h3>
+    <p class="p-3 mt-2 mb-2">{{ message }}</p>
+    <app-button [btnText]="okButtonText" (click)="confirm()"></app-button>
+    <app-button [btnText]="cancelButtonText" (click)="close()"></app-button>
+  </div>
 </div>
-<div [ngClass]="{'app-modal-background': isOpen}"></div>
+<div [ngClass]="{ 'app-modal-background': isOpen }"></div>

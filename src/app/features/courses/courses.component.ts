@@ -45,9 +45,7 @@ export class CoursesComponent implements OnInit {
     const [id, action] = actionValues;
     this.modalService.open(`confirmModal`, {
       id,
-      msg: `Are you sure to want to ${action.toLowerCase()} ${this.getCourseName(
-        id
-      )} course?`,
+      msg: `Are you sure to want to ${action.toLowerCase()} ${this.getCourseName(id)} course?`,
       action,
     });
   }

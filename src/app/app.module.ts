@@ -11,16 +11,8 @@ import { CourseComponent } from './features/course/course.component';
 
 @NgModule({
   declarations: [AppComponent, CourseComponent],
-  imports: [
-    SharedModule,
-    BrowserModule,
-    LoginModule,
-    RegistrationModule,
-    FontAwesomeModule,
-    CoursesModule,
-  ],
+  imports: [SharedModule, BrowserModule, LoginModule, RegistrationModule, FontAwesomeModule, CoursesModule],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
- 
