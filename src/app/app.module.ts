@@ -7,9 +7,10 @@ import { RegistrationModule } from './features/registration/registration.module'
 import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoursesModule } from './features/courses/courses.module';
+import { CourseComponent } from './features/course/course.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CourseComponent],
   imports: [
     SharedModule,
     BrowserModule,

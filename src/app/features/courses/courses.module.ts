@@ -8,12 +8,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CourseModule } from './course/course.module';
+import { CourseCardComponent } from './course-list/course-card/course-card.component';
+import { CourseListComponent } from './course-list/course-list.component';
 import { CoursesComponent } from './courses.component';
 
+const COMPONENTS = [CoursesComponent, CourseCardComponent, CourseListComponent];
+
 @NgModule({
-  imports: [SharedModule, CommonModule, CourseModule],
-  declarations: [CoursesComponent],
-  exports: [CoursesComponent],
+  imports: [SharedModule, CommonModule],
+  declarations: COMPONENTS,
+  exports: COMPONENTS,
 })
 export class CoursesModule {}
