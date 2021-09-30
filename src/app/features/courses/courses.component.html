@@ -1,0 +1,26 @@
+<app-page>
+  <app-modal
+    id="confirmModal"
+    (result)="courseActionHandler($event)"
+    [title]="'Are you sure?'"
+    message="'Are you sure to delete this course?'"
+  >
+  </app-modal>
+  <div *ngIf="courses.length > 0; else emptyMsg">
+    <app-courses-list
+      [courseList]="courses"
+      [editable]="true"
+      (courseAction)="openModal($event)"
+      *ngIf="courses.length > 0"
+    >
+    </app-courses-list>
+  </div>
+  <ng-template #emptyMsg>
+    <app-info
+      [infoTitle]="'Your list is empty'"
+      [infoDescription]="'Please use the `Add new course` button to add your first course'"
+    >
+      <app-button [btnText]="'Add new course'"></app-button>
+    </app-info>
+  </ng-template>
+</app-page>
