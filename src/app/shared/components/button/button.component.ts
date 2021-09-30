@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { IconName } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
@@ -8,7 +14,10 @@ import { IconName } from '@fortawesome/fontawesome-svg-core';
     [ngClass]="{ 'btn-lg': buttonSize === 'lg' }"
     (click)="click($event)"
   >
-    <fa-icon *ngIf="iconName" [icon]="['fas', iconName]"></fa-icon>
+    <fa-icon
+      *ngIf="iconName"
+      [icon]="['fas', iconName]"
+    ></fa-icon>
     {{ btnText }}
   </button>`,
 })

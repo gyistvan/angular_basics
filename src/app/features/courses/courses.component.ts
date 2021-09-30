@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { Course } from 'src/app/shared/interfaces/course';
 import { CourseAction } from 'src/app/shared/interfaces/courseActions';
@@ -16,7 +22,9 @@ export class CoursesComponent implements OnInit {
   public courses: Course[] = courses;
 
   private getCourseIndex(id: number): number {
-    return this.courses.findIndex((course) => course.id === id);
+    return this.courses.findIndex(
+      (course) => course.id === id
+    );
   }
 
   private deleteCourse(id: number): void {
@@ -29,7 +37,9 @@ export class CoursesComponent implements OnInit {
     return this.courses[courseIndex].title;
   }
 
-  public courseActionHandler(actionValues: [number, CourseAction]): void {
+  public courseActionHandler(
+    actionValues: [number, CourseAction]
+  ): void {
     console.log(actionValues);
     const [id, action] = actionValues;
     if (action === 'DELETE') {
@@ -41,11 +51,15 @@ export class CoursesComponent implements OnInit {
     }
   }
 
-  public openModal(actionValues: [number, CourseAction]): void {
+  public openModal(
+    actionValues: [number, CourseAction]
+  ): void {
     const [id, action] = actionValues;
     this.modalService.open(`confirmModal`, {
       id,
-      msg: `Are you sure to want to ${action.toLowerCase()} ${this.getCourseName(id)} course?`,
+      msg: `Are you sure to want to ${action.toLowerCase()} ${this.getCourseName(
+        id
+      )} course?`,
       action,
     });
   }

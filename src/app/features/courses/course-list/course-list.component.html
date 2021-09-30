@@ -6,11 +6,21 @@
   -->
 
 <div *ngIf="courseList.length > 0">
-  <app-course-card *ngFor="let course of courseList" [course]="course">
+  <app-course-card
+    *ngFor="let course of courseList"
+    [course]="course"
+  >
     <app-button [btnText]="'Show course'"></app-button>
     <ng-template [ngIf]="editable">
-      <app-button [iconName]="'pen'" (onClick)="buttonHandler(course.id, 'EDIT')"></app-button>
-      <app-button [iconName]="'trash'" (onClick)="buttonHandler(course.id, 'DELETE')"> </app-button>
+      <app-button
+        [iconName]="'pen'"
+        (onClick)="buttonHandler(course.id, 'EDIT')"
+      ></app-button>
+      <app-button
+        [iconName]="'trash'"
+        (onClick)="buttonHandler(course.id, 'DELETE')"
+      >
+      </app-button>
     </ng-template>
   </app-course-card>
 </div>
