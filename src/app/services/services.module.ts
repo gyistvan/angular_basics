@@ -7,4 +7,4 @@ import { ModalService } from './modal/modal.service';
   declarations: [],
   exports: [],
 })
-export class CoursesModule {}
+export class ServicesModule {}

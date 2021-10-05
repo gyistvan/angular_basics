@@ -1,0 +1,14 @@
+<form class="form" [formGroup]="authorForm" (ngSubmit)="onSubmit(authorForm)">
+    <h3 class="text-center my-3">Add authors</h3>
+    <label for="author" class="form-label">Author name</label>
+    <input id="author" class="form-control" type="text" formControlName="author" required />
+    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty) && author.errors?.required">
+        Can't create an author without a name
+    </div>
+    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty) && author.errors?.hasNonLatinChars">
+        Author's name can contain only latin characters
+    </div>
+    <div class="d-flex justify-content-center my-3">
+        <app-button [btnText]="'Create Author'" [iconName]="'plus'"></app-button>
+    </div>
+</form>

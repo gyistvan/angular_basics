@@ -1,12 +1,4 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ElementRef,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { CourseAction } from '../../interfaces/courseActions';
 import { ModalSettings } from '../../interfaces/modalSettings';
@@ -23,18 +15,13 @@ export class ModalComponent implements OnInit {
   @Input() message!: string;
   @Input() okButtonText: string = 'Ok';
   @Input() cancelButtonText: string = 'Cancel';
-  @Output() result = new EventEmitter<
-    [number, CourseAction]
-  >();
+  @Output() result = new EventEmitter<[number, CourseAction]>();
 
   private action!: CourseAction;
   public isOpen?: boolean;
   private courseId!: number;
 
-  constructor(
-    private modalService: ModalService,
-    private el: ElementRef
-  ) {}
+  constructor(private modalService: ModalService, private el: ElementRef) {}
 
   ngOnInit(): void {
     if (!this.id) {

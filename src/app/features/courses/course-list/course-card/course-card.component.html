@@ -10,7 +10,7 @@
           <strong> Authors: </strong>
         </div>
         <div class="col-9">
-          {{ getAuthors(course.authors) }}
+          {{ course.authors | stringJoiner:"; " }}
         </div>
       </div>
       <div class="row">
@@ -18,7 +18,7 @@
           <strong> Durtaion: </strong>
         </div>
         <div class="col-9">
-          {{ course.duration | time }}
+          {{ course.duration | duration }}
         </div>
       </div>
       <div class="row">
@@ -26,7 +26,7 @@
           <strong> Created: </strong>
         </div>
         <div class="col-9">
-          {{ course.created | date: 'dd.MM.YYYY' }}
+          {{ course.created | cDate }}
         </div>
       </div>
       <div class="d-flex gx-2 mt-3">

@@ -12,11 +12,7 @@ import { CourseCardComponent } from './course-list/course-card/course-card.compo
 import { CourseListComponent } from './course-list/course-list.component';
 import { CoursesComponent } from './courses.component';
 
-const COMPONENTS = [
-  CoursesComponent,
-  CourseCardComponent,
-  CourseListComponent,
-];
+const COMPONENTS = [CoursesComponent, CourseCardComponent, CourseListComponent];
 
 @NgModule({
   imports: [SharedModule, CommonModule],

@@ -4,10 +4,7 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: [
-      'jasmine',
-      '@angular-devkit/build-angular',
-    ],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -28,15 +25,9 @@ module.exports = function (config) {
       suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(
-        __dirname,
-        './coverage/courses-app'
-      ),
+      dir: require('path').join(__dirname, './coverage/courses-app'),
       subdir: '.',
-      reporters: [
-        { type: 'html' },
-        { type: 'text-summary' },
-      ],
+      reporters: [{ type: 'html' }, { type: 'text-summary' }],
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,

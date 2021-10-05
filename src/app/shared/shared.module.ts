@@ -7,26 +7,39 @@ import {
   ButtonComponent,
   ModalComponent,
   InfoComponent,
+  SearchComponent,
 } from './components/index';
-import {
-  FontAwesomeModule,
-  FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { timePipe } from './pipes/timePipe';
+import { timePipe } from './pipes/duration.pipe';
+import { FormsModule } from '@angular/forms';
+import { datePipe } from './pipes/date.pipe';
+import { stringJoinerPipe } from './pipes/stringJoiner.pipe';
+import { EmailValidatorDirective } from './directives/email-validator/email-validator.directive';
+import { PasswordValidatorDirective } from './directives/password-validator/password-validator.directive';
+import { TogglePasswordDirective } from './directives/toggle-password/toggle-password.directive';
+import { LatinCharsValidatorDirective } from './directives/latin-chars-validator/latin-chars-validator.directive';
+import { ControlErrorDirective } from './directives/control-error/control-error.directive';
 
 const components = [
   HeaderComponent,
   PageComponent,
   ButtonComponent,
   ModalComponent,
-  timePipe,
   InfoComponent,
+  SearchComponent,
+  timePipe,
+  datePipe,
+  stringJoinerPipe,
+  EmailValidatorDirective,
+  PasswordValidatorDirective,
+  TogglePasswordDirective,
+  ControlErrorDirective
 ];
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule],
-  providers: [],
+  imports: [CommonModule, FontAwesomeModule, FormsModule],
+  providers: [EmailValidatorDirective, PasswordValidatorDirective, LatinCharsValidatorDirective,ControlErrorDirective],
   declarations: components,
   exports: components,
 })

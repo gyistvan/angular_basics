@@ -1,0 +1,9 @@
+<h3 class="text-center my-3">Authors list</h3>
+<div class="row my-4" *ngFor="let author of authors; let i = index">
+    <div class="col-6">
+        <span>{{author}}</span>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        <app-button [btnText]="'Delete author'" [iconName]="'trash'" (onClick)="deleteAuthor(i)"></app-button>
+    </div>
+</div>
