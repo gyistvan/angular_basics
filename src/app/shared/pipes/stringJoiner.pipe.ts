@@ -5,9 +5,11 @@
  * unless prior written permission is obtained from EPAM Systems, Inc
  */
 
-export * from './button/button.component';
-export * from './header/header.component';
-export * from './page/page.component';
-export * from './modal/modal.component';
-export * from './info/info.component';
-export * from './search/search.component';
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'stringJoiner' })
+export class stringJoinerPipe implements PipeTransform {
+  transform(arr: string[], separator: string = ', '): string {
+    return arr.join(separator);
+  }
+}

@@ -4,7 +4,7 @@ import { IconName } from '@fortawesome/fontawesome-svg-core';
 @Component({
   selector: 'app-button',
   template: `<button
-    class="btn btn-info me-3 text-white"
+    class="btn btn-info ms-3 text-white"
     [ngClass]="{ 'btn-lg': buttonSize === 'lg' }"
     (click)="click($event)"
   >

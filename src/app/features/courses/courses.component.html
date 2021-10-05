@@ -6,6 +6,7 @@
     message="'Are you sure to delete this course?'"
   >
   </app-modal>
+  <app-search (searchByString)="searchByString($event)" [placeholder]="'Search in title...'"></app-search>
   <div *ngIf="courses.length > 0; else emptyMsg">
     <app-courses-list
       [courseList]="courses"

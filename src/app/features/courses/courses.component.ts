@@ -29,8 +29,11 @@ export class CoursesComponent implements OnInit {
     return this.courses[courseIndex].title;
   }
 
+  public searchByString(str: string): void {
+    this.courses = courses.filter((course: Course) => course.title.toLowerCase().search(str.toLowerCase()) !== -1);
+  }
+
   public courseActionHandler(actionValues: [number, CourseAction]): void {
-    console.log(actionValues);
     const [id, action] = actionValues;
     if (action === 'DELETE') {
       this.deleteCourse(id);

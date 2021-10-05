@@ -1,11 +1,49 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidatorDirective } from 'src/app/shared/directives/email-validator/email-validator.directive';
+import { PasswordValidatorDirective } from 'src/app/shared/directives/password-validator/password-validator.directive';
+
+const NAME_MIN_LENGTH = 6;
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
-  constructor() {}
+  registrationForm!: FormGroup;
 
-  ngOnInit(): void {}
+  constructor(private formBuilder: FormBuilder) {}
+
+  public ngOnInit(): void {
+    this.registrationForm = this.createForm();
+  }
+
+  createForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [Validators.required, Validators.min(NAME_MIN_LENGTH)]],
+      email: ['', [Validators.required, new EmailValidatorDirective()]],
+      password: ['', [Validators.required, new PasswordValidatorDirective()]],
+    });
+  }
+
+  get name(): AbstractControl {
+    return this.registrationForm.get('name') as AbstractControl;
+  }
+
+  get password(): AbstractControl {
+    return this.registrationForm.get('password') as AbstractControl;
+  }
+
+  get email(): AbstractControl {
+    return this.registrationForm.get('email') as AbstractControl;
+  }
+
+  onSubmit(form: FormGroup) {
+    if (form.invalid) {
+      return;
+    }
+    console.log(form);
+  }
 }
+

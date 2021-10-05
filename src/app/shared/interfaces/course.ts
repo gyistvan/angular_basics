@@ -11,5 +11,5 @@ export interface Course {
   description: string;
   authors: string[];
   duration: number;
-  created: string;
+  created: string | Date;
 }

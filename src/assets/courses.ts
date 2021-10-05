@@ -11,7 +11,7 @@ export const courses: Course[] = [
                 temporibus vel iste!`,
     authors: ['Test1 Test1', 'Test2 Test2', 'Test3 Test3'],
     duration: 121,
-    created: new Date().toString(),
+    created: new Date(),
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const courses: Course[] = [
                 temporibus vel iste!`,
     authors: ['Test1 Test1', 'Test2 Test2', 'Test3 Test3'],
     duration: 90,
-    created: new Date().toString(),
+    created: '2021.04.30 15:40:20',
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const courses: Course[] = [
                 temporibus vel iste!`,
     authors: ['Test1 Test1', 'Test2 Test2', 'Test3 Test3'],
     duration: 60,
-    created: new Date().toString(),
+    created: new Date(),
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ export const courses: Course[] = [
                 temporibus vel iste!`,
     authors: ['Test1 Test1', 'Test2 Test2', 'Test3 Test3'],
     duration: 45,
-    created: new Date().toString(),
+    created: '2021.10.01 9:40',
   },
   {
     id: 5,
@@ -59,6 +59,6 @@ export const courses: Course[] = [
                 temporibus vel iste!`,
     authors: ['Test1 Test1', 'Test2 Test2', 'Test3 Test3'],
     duration: 298,
-    created: new Date().toString(),
+    created: '2020.01.30 11:42:20',
   },
 ];

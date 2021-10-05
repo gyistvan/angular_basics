@@ -1,4 +1,9 @@
-<div [ngClass]="{ 'app-modal': isOpen, 'app-modal-closed': !isOpen }">
+<div
+  [ngClass]="{
+    'app-modal': isOpen,
+    'app-modal-closed': !isOpen
+  }"
+>
   <div class="app-modal-body col-10 col-md-3 text-center">
     <div class="d-flex justify-content-end">
       <app-button [iconName]="'times'" [buttonSize]="'normal'" (click)="close()"></app-button>
