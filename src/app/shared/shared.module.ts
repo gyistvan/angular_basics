@@ -19,7 +19,6 @@ import { EmailValidatorDirective } from './directives/email-validator/email-vali
 import { PasswordValidatorDirective } from './directives/password-validator/password-validator.directive';
 import { TogglePasswordDirective } from './directives/toggle-password/toggle-password.directive';
 import { LatinCharsValidatorDirective } from './directives/latin-chars-validator/latin-chars-validator.directive';
-import { ControlErrorDirective } from './directives/control-error/control-error.directive';
 
 const components = [
   HeaderComponent,
@@ -34,12 +33,11 @@ const components = [
   EmailValidatorDirective,
   PasswordValidatorDirective,
   TogglePasswordDirective,
-  ControlErrorDirective
 ];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, FormsModule],
-  providers: [EmailValidatorDirective, PasswordValidatorDirective, LatinCharsValidatorDirective,ControlErrorDirective],
+  providers: [EmailValidatorDirective, PasswordValidatorDirective, LatinCharsValidatorDirective],
   declarations: components,
   exports: components,
 })
