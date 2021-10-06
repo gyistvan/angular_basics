@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { errorsDescriptions } from '../../../assets/errorsDescriptions';
 import { LoginData } from '../../models/login';
 
 @Component({
@@ -10,7 +9,6 @@ import { LoginData } from '../../models/login';
 })
 export class LoginComponent implements OnInit {
   loginForm: LoginData = new LoginData();
-  public errorsDescriptions: {} = errorsDescriptions.login;
   constructor() {}
 
   ngOnInit(): void {}
