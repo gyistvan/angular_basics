@@ -1,21 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Course } from 'src/app/shared/interfaces/course';
-import { CourseAction } from 'src/app/shared/interfaces/courseActions';
+import { Router } from '@angular/router';
+import { Course } from 'src/app/services/courses/interfaces/course';
 
 @Component({
-  selector: 'app-courses-list',
+  selector: 'app-course-list',
   templateUrl: './course-list.component.html',
 })
 export class CourseListComponent implements OnInit {
   @Input() public courseList!: Course[];
   @Input() public editable!: boolean;
-  @Output() courseAction = new EventEmitter<[number, CourseAction]>();
+  @Output() courseAction = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
-  public buttonHandler(id: number, action: CourseAction): void {
-    this.courseAction.emit([id, action]);
+  public deleteCourse(id: string): void {
+    this.courseAction.emit(id);
+  }
+
+  public navigateToEditPage(id: string): void {
+    this.router.navigate([`/course/edit/${id}`]);
   }
 }

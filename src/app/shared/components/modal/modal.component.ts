@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, ElementRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { CourseAction } from '../../interfaces/courseActions';
 import { ModalSettings } from '../../interfaces/modalSettings';
 
 @Component({
@@ -15,13 +14,12 @@ export class ModalComponent implements OnInit {
   @Input() message!: string;
   @Input() okButtonText: string = 'Ok';
   @Input() cancelButtonText: string = 'Cancel';
-  @Output() result = new EventEmitter<[number, CourseAction]>();
+  @Output() result = new EventEmitter<string>();
 
-  private action!: CourseAction;
   public isOpen?: boolean;
-  private courseId!: number;
+  private courseId!: string;
 
-  constructor(private modalService: ModalService, private el: ElementRef) {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {
     if (!this.id) {
@@ -34,7 +32,6 @@ export class ModalComponent implements OnInit {
   open(params: ModalSettings): void {
     this.courseId = params.id;
     this.message = params.msg;
-    this.action = params.action;
     this.isOpen = true;
   }
 
@@ -43,7 +40,7 @@ export class ModalComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.result.emit([this.courseId, this.action]);
+    this.result.emit(this.courseId);
     this.close();
   }
 }
