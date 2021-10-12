@@ -23,6 +23,7 @@ export class AuthService {
     private userStoreService: UserStoreService
   ) {
     this.getLoginState();
+    console.log(this.isAuthorised$$.value);
   }
 
   private getLoginState(): void {
