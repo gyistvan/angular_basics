@@ -29,7 +29,6 @@ export class CoursesStoreService {
     this.coursesService.getAll().subscribe((courses) => {
       this.courses$$.next(courses);
       this.isLoading$$.next(false);
-      return courses;
     });
   }
 
@@ -58,7 +57,11 @@ export class CoursesStoreService {
   private updateCoursesList(resp: GetCourseResponse): void {
     let courses = this.courses$$.value;
     let index = courses.findIndex((course) => course.id === resp.result.id);
-    courses[index] = resp.result;
+    if (index > -1) {
+      courses[index] = resp.result;
+    } else {
+      courses.push(resp.result);
+    }
     this.courses$$.next(courses);
     this.isLoading$$.next(false);
   }
