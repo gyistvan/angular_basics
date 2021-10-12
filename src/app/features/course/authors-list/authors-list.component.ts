@@ -16,7 +16,7 @@ export class AuthorsListComponent {
 
   constructor(private authorStore: AuthorsStoreService) {}
 
-  ngOnChanges(): void {
+  ngOnInit(): void {
     this.authorStore.getAll().subscribe((authors) => {
       this.existingAuthors = authors;
     });

@@ -67,8 +67,8 @@ export class CourseComponent implements OnInit {
     return this.courseForm.get('authors') as FormArray;
   }
 
-  addAuthor(author: string): void {
-    this.authors.push(this.formBuilder.control(author));
+  addAuthor(id: string): void {
+    this.authors.push(this.formBuilder.control(id));
   }
 
   removeAuthor(id: string): void {
