@@ -22,4 +22,8 @@ export class CourseListComponent implements OnInit {
   public navigateToEditPage(id: string): void {
     this.router.navigate([`/course/edit/${id}`]);
   }
+
+  public navigateToDisplayPage(id: string): void {
+    this.router.navigate([`/courses/${id}`]);
+  }
 }

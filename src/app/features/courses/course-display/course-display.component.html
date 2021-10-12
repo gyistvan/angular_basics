@@ -1,0 +1,27 @@
+<app-header></app-header>
+<app-page>
+    <div class="container">
+        <div *ngIf="!!course; else errorMsg">
+
+            <h1 class="text-center">{{course.title}}</h1>
+            <div class="row">
+                <div class="col-10">
+                    <p>Description: </p>
+                    <p>
+                        {{ course.description }}
+                    </p>
+                </div>
+                <div class="col-2">
+                    <p>Duration: </p><p><strong>{{ course.duration | duration }}</strong></p>
+                    <p>Authors: </p><p><strong>{{ getAuthorsName(course.authors) | stringJoiner }}</strong></p>
+                    <p>Creation Date:</p><p><strong>{{ course.creationDate | cDate }}</strong></p>
+                </div>
+                
+            </div>
+        </div>
+        <ng-template #errorMsg>
+            <h1>Course not found</h1>
+        </ng-template>
+        <app-button [btnText]="'Back'" (onClick)="navigateToCourses()"></app-button>
+    </div>
+</app-page>
