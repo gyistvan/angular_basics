@@ -34,7 +34,6 @@ export class CourseComponent implements OnInit {
         title: course.title,
         description: course.description,
         duration: course.duration,
-        authors: course.authors,
       });
       this.courseId = course.id;
       course.authors.forEach((authorId) => {
