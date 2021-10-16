@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { EmailValidatorDirective } from 'src/app/shared/directives/email-validator/email-validator.directive';
 import { PasswordValidatorDirective } from 'src/app/shared/directives/password-validator/password-validator.directive';
 
@@ -13,7 +14,7 @@ const NAME_MIN_LENGTH = 6;
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
 
   public ngOnInit(): void {
     this.registrationForm = this.createForm();
@@ -40,10 +41,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    if (form.invalid) {
-      return;
+    if (form.valid) {
+      this.authService.register(form.value);
     }
-    console.log(form);
   }
 }
-

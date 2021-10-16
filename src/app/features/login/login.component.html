@@ -1,9 +1,13 @@
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-6">
       <img src="../../../assets/login.jpg" alt="login image" class="img-fluid" />
     </div>
     <div class="col-sm-12 col-md-6">
+      <div class="alert alert-success" role="alert" *ngIf="successfulRegistration">
+        successful registration, you can log in now!
+      </div>
       <form class="form" name="form" #loginData="ngForm" (ngSubmit)="onFormSubmit(loginData.form)">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail</label>
@@ -44,7 +48,7 @@
             <app-button [btnText]="'Login'" [iconName]="'sign-in-alt'"></app-button>
           </div>
           <div class="d-flex justify-content-center">
-            <p>If you don't have an account, you can register <a href="#" class="text-info">here</a></p>
+            <p>If you don't have an account, you can register <a routerLink='/registration' class="text-info">here</a></p>
         </div>
       </form>
     </div>

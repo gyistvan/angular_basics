@@ -1,51 +1,52 @@
+<app-header></app-header>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form class="form" [formGroup]="courseForm" (ngSubmit)="onFormSubmit(courseForm)" #regForm="ngForm">
+            <form class="form" [formGroup]="courseForm" (ngSubmit)="onFormSubmit(courseForm)" #CForm="ngForm">
                 <div class="row">
                     <div class="col-8">
                         <label for="title" class="form-label">Title</label>
                         <input id="title" class="form-control"
-                            [ngClass]="{ 'is-invalid': (title.touched || regForm.submitted) && (title.errors?.required)}"
+                            [ngClass]="{ 'is-invalid': (title.touched || CForm.submitted) && (title.errors?.required)}"
                             type="text" placeholder="Eg. Angular course for beginners" formControlName="title"
                             required />
                         <div class="text-danger"
-                            *ngIf="(title.touched || regForm.submitted) && (title.errors?.required)">
+                            *ngIf="(title.touched || CForm.submitted) && (title.errors?.required)">
                             Title is required
                         </div>
                     </div>
                     <div class="d-flex justify-content-center col-4 p-4">
-                        <app-button [btnText]="'Create course'"></app-button>
+                        <app-button [btnText]="courseId ? 'Edit course' : 'Create course'"></app-button>
                     </div>
                 </div>
                 <div class="row">
                     <label for="description" class="form-label">Description</label>
                     <textarea rows="15" id="description" class="form-control" type="text"
-                        [ngClass]="{ 'is-invalid': (description.touched || regForm.submitted) && (description.errors?.required)}"
+                        [ngClass]="{ 'is-invalid': (description.touched || CForm.submitted) && (description.errors?.required)}"
                         formControlName="description" required></textarea>
                     <div class="text-danger"
-                        *ngIf="(description.touched || regForm.submitted) && (description.errors?.required)">
+                        *ngIf="(description.touched || CForm.submitted) && (description.errors?.required)">
                         Description is required
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <app-add-author-form (authorAdd)="addAuthor($event)"></app-add-author-form>
+                        <app-add-author-form [selectedAuthors]="CForm.value.authors" (authorAdd)="addAuthor($event)"></app-add-author-form>
                         <label for="duration" class="form-label">duration</label>
                         <input id="duration" class="form-control" type="text"
-                            [ngClass]="{ 'is-invalid': (duration.touched || regForm.submitted) && (duration.errors?.required)}"
+                            [ngClass]="{ 'is-invalid': (duration.touched || CForm.submitted) && (duration.errors?.required)}"
                             placeholder="121" formControlName="duration" />
                         <div class="text-danger"
-                            *ngIf="(duration.touched || regForm.submitted) && (duration.errors?.required)">
+                            *ngIf="(duration.touched || CForm.submitted) && (duration.errors?.required)">
                             Duration is required
                         </div>
                         <div class="text-danger"
-                            *ngIf="(duration.touched || regForm.submitted) && (duration.errors?.min)">
+                            *ngIf="(duration.touched || CForm.submitted) && (duration.errors?.min)">
                             Duration can't be negative
                         </div>
                     </div>
                     <div class="col-6">
-                        <app-authors-list [authors]="authors.value" (removeAuthorByIndex)="removeAuthor($event)">
+                        <app-authors-list [authorIds]="authors.value" (removeAuthorByIndex)="removeAuthor($event)">
                         </app-authors-list>
                     </div>
                     <div class="col-6">

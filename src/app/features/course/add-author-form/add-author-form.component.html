@@ -2,13 +2,26 @@
     <h3 class="text-center my-3">Add authors</h3>
     <label for="author" class="form-label">Author name</label>
     <input id="author" class="form-control" type="text" formControlName="author" required />
-    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty) && author.errors?.required">
+    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty ) && author.errors?.required">
         Can't create an author without a name
     </div>
-    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty) && author.errors?.hasNonLatinChars">
+    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty  ) && author.errors?.hasNonLatinChars">
         Author's name can contain only latin characters
     </div>
     <div class="d-flex justify-content-center my-3">
         <app-button [btnText]="'Create Author'" [iconName]="'plus'"></app-button>
+    </div>
+</form>
+<form class="form" [formGroup]="existingAuthorForm" (ngSubmit)="selectExistingAuthor(existingAuthorForm)">
+    <h3 class="text-center my-3">Add existing authors</h3>
+    <label for="author" class="form-label">Author name</label>
+    <select id="author" class="form-control" type="text" formControlName="author">
+        <option *ngFor="let author of existingAuthors" [value]="author.id">{{ author.name }}</option>
+    </select>
+    <div class="text-danger my-3" *ngIf="(author.touched || author.dirty ) && author.errors?.required">
+        Please select an author
+    </div>
+    <div class="d-flex justify-content-center my-3">
+        <app-button [btnText]="'Select Author'" [iconName]="'plus'"></app-button>
     </div>
 </form>

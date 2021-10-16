@@ -1,19 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Course } from 'src/app/shared/interfaces/course';
+import { Component, Input } from '@angular/core';
+import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
+import { Author } from 'src/app/services/authors/interfaces/author';
+import { Course } from 'src/app/services/courses/interfaces/course';
 
 @Component({
   selector: 'app-course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent {
   @Input() course!: Course;
 
-  constructor() {}
+  authors: Author[] = [];
 
-  ngOnInit(): void {}
+  constructor(private authorsStoreService: AuthorsStoreService) {
+    this.authorsStoreService.getAll().subscribe((authors) => (this.authors = authors));
+  }
 
-  public getAuthors(authors: string[]): string {
-    return authors.join(', ');
+  public getAuthorNames(): string[] {
+    return this.course.authors.map((authorId: string) => this.authors.find((author) => author.id === authorId)!.name);
   }
 }

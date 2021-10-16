@@ -1,27 +1,33 @@
+<app-header></app-header>
 <app-page>
   <app-modal
     id="confirmModal"
-    (result)="courseActionHandler($event)"
+    (result)="deleteCourse($event)"
     [title]="'Are you sure?'"
     message="'Are you sure to delete this course?'"
   >
   </app-modal>
-  <app-search (searchByString)="searchByString($event)" [placeholder]="'Search in title...'"></app-search>
-  <div *ngIf="courses.length > 0; else emptyMsg">
-    <app-courses-list
-      [courseList]="courses"
-      [editable]="true"
-      (courseAction)="openModal($event)"
-      *ngIf="courses.length > 0"
-    >
-    </app-courses-list>
+  <app-search (searchByString)="searchByString($event)" [placeholder]="'Search...'" [filterOptions]="filterOptions"></app-search>
+  <div *ngIf="!isLoading; else spinner">
+    <div *ngIf="courses.length > 0; else emptyMsg">
+      <app-course-list
+        [courseList]="courses"
+        [editable]="isAdmin"
+        (courseAction)="openModal($event)"
+        *ngIf="courses.length > 0"
+      >
+      </app-course-list>
+    </div>
+    <ng-template #emptyMsg>
+      <app-info
+        [infoTitle]="'Your list is empty'"
+        [infoDescription]="'Please use the `Add new course` button to add your first course'"
+      >
+        <app-button [btnText]="'Add new course'"></app-button>
+      </app-info>
+    </ng-template>
   </div>
-  <ng-template #emptyMsg>
-    <app-info
-      [infoTitle]="'Your list is empty'"
-      [infoDescription]="'Please use the `Add new course` button to add your first course'"
-    >
-      <app-button [btnText]="'Add new course'"></app-button>
-    </app-info>
+  <ng-template #spinner>
+    <spinner></spinner>
   </ng-template>
 </app-page>

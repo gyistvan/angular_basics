@@ -8,6 +8,7 @@ import {
   ModalComponent,
   InfoComponent,
   SearchComponent,
+  SpinnerComponent,
 } from './components/index';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +28,7 @@ const components = [
   ModalComponent,
   InfoComponent,
   SearchComponent,
+  SpinnerComponent,
   timePipe,
   datePipe,
   stringJoinerPipe,

@@ -1,7 +1,4 @@
-import { CourseAction } from './courseActions';
-
 export interface ModalSettings {
-  id: number;
+  id: string;
   msg: string;
-  action: CourseAction;
 }

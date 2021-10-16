@@ -2,25 +2,22 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { LoginModule } from './features/login/login.module';
-import { RegistrationModule } from './features/registration/registration.module';
-import { SharedModule } from './shared/shared.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CoursesModule } from './features/courses/courses.module';
-import { CourseModule } from './features/course/course.module';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthModule } from './auth/auth.module';
+import { TokenInterceptor } from './auth/token.interceptor';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    SharedModule,
-    BrowserModule,
-    LoginModule,
-    RegistrationModule,
-    FontAwesomeModule,
-    CoursesModule,
-    CourseModule,
+  imports: [BrowserModule, HttpClientModule, AuthModule, AppRoutingModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

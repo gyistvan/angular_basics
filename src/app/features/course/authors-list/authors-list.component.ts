@@ -1,20 +1,34 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
+import { Author } from 'src/app/services/authors/interfaces/author';
 
 @Component({
   selector: 'app-authors-list',
   templateUrl: './authors-list.component.html',
   styleUrls: ['./authors-list.component.css'],
 })
-export class AuthorsListComponent implements OnInit {
-  @Input() authors!: string[];
+export class AuthorsListComponent {
+  @Input() authorIds!: string[];
   @Output() removeAuthorByIndex = new EventEmitter();
 
-  constructor() {}
+  public existingAuthors: Author[] = [];
+  public isLoading: Boolean = false;
 
-  ngOnInit(): void {}
+  constructor(private authorStore: AuthorsStoreService) {}
 
-  public deleteAuthor(i: number): void {
-    this.removeAuthorByIndex.emit(i);
+  ngOnInit(): void {
+    this.authorStore.getAll().subscribe((authors) => {
+      this.existingAuthors = authors;
+    });
+    this.authorStore.isLoading$.subscribe((isLoading) => (this.isLoading = isLoading));
+  }
+
+  public getAuthorNameById(id: string): string {
+    return this.existingAuthors.find((author) => author.id === id)!.name;
+  }
+
+  public removeAuthor(event: MouseEvent, id: string): void {
+    event.preventDefault();
+    this.removeAuthorByIndex.emit(id);
   }
 }
