@@ -1,30 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth/auth.service';
-import { UserStoreService } from 'src/app/services/user/user-store.service';
+import { Observable } from 'rxjs';
+import { AuthStateFacade } from 'src/app/store/auth/auth.facade';
+import { UserStateFacade } from 'src/app/store/user/user.facade';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  public userName?: string;
+  public userName$: Observable<string | undefined> = this.userStateFacade.userName$;
 
-  constructor(private router: Router, private authService: AuthService, private userStoreService: UserStoreService) {}
+  constructor(private authFacade: AuthStateFacade, private userStateFacade: UserStateFacade) {}
 
   ngOnInit(): void {
-    this.userStoreService.name$.subscribe((name) => {
-      this.userName = name;
-    });
+    this.authFacade.isUserAuthorized$.subscribe(
+      (isUserAuthorized) => isUserAuthorized && this.userStateFacade.getCurrentUser()
+    );
   }
 
   public logoutAndRedirect(): void {
-    this.authService.logout().subscribe(() => {
-      this.redirectToLoginPage();
-    });
-  }
-
-  public redirectToLoginPage(): void {
-    this.router.navigate(['/login']);
+    this.authFacade.logout();
   }
 }

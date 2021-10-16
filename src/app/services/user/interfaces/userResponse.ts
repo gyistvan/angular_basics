@@ -10,3 +10,10 @@ export interface User {
   password: string;
   role: string;
 }
+
+export interface UserResponseFail {
+  successful?: boolean;
+  error?: string;
+  message?: string;
+  statusCode?: number;
+}

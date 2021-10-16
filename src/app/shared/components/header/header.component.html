@@ -18,11 +18,11 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item text-nowrap d-flex align-items-center" *ngIf="userName">
-            {{userName}}
+          <li class="nav-item text-nowrap d-flex align-items-center" *ngIf="userName$">
+            {{ userName$ | async}}
           </li>
           <li class="nav-item">
-            <app-button *ngIf="!userName; else logout" [btnText]="'Login'" buttonSize="normal" (onClick)="redirectToLoginPage()"></app-button>
+            <app-button *ngIf="!userName$; else logout" [btnText]="'Login'" buttonSize="normal"></app-button>
             <ng-template #logout>
               <app-button [btnText]="'Logout'" buttonSize="normal" (onClick)="logoutAndRedirect()"></app-button>
             </ng-template>

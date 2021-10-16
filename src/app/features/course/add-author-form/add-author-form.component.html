@@ -16,7 +16,7 @@
     <h3 class="text-center my-3">Add existing authors</h3>
     <label for="author" class="form-label">Author name</label>
     <select id="author" class="form-control" type="text" formControlName="author">
-        <option *ngFor="let author of existingAuthors" [value]="author.id">{{ author.name }}</option>
+        <option *ngFor="let author of filteredAuthors" [value]="author.id">{{ author.name }}</option>
     </select>
     <div class="text-danger my-3" *ngIf="(author.touched || author.dirty ) && author.errors?.required">
         Please select an author

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
 import { Author } from 'src/app/services/authors/interfaces/author';
 import { LatinCharsValidatorDirective } from 'src/app/shared/directives/latin-chars-validator/latin-chars-validator.directive';
+import { AuthorsStateFacade } from 'src/app/store/authors/authors.facade';
 
 @Component({
   selector: 'app-add-author-form',
@@ -12,13 +12,13 @@ import { LatinCharsValidatorDirective } from 'src/app/shared/directives/latin-ch
 export class AddAuthorFormComponent implements OnInit {
   @Input() selectedAuthors: string[] = [];
 
-  @Output() authorAdd = new EventEmitter();
+  @Output() addAuthor = new EventEmitter();
 
   public authorForm!: FormGroup;
   public existingAuthorForm!: FormGroup;
-  public existingAuthors: Author[] = [];
+  public filteredAuthors: Author[] = [];
 
-  constructor(private formBuilder: FormBuilder, private authorStore: AuthorsStoreService) {}
+  constructor(private formBuilder: FormBuilder, private authorsStateFacade: AuthorsStateFacade) {}
 
   public ngOnInit(): void {
     this.authorForm = this.createForm();
@@ -26,9 +26,8 @@ export class AddAuthorFormComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.authorStore.getAll().subscribe((authors) => {
-      let filteredAuthors = authors.filter((author) => !this.selectedAuthors.includes(author.id));
-      this.existingAuthors = filteredAuthors;
+    this.authorsStateFacade.authors$.subscribe((authors) => {
+      this.filteredAuthors = authors.filter((author) => !this.selectedAuthors.includes(author.id));
     });
   }
 
@@ -50,9 +49,7 @@ export class AddAuthorFormComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.authorStore.addAuthor(form.value.author).subscribe((resp) => {
-        this.authorAdd.emit(resp.result.id);
-      });
+      this.authorsStateFacade.addAuthor(form.value.author);
       this.authorForm.reset();
       this.authorForm.markAsPristine();
       this.authorForm.markAsUntouched();
@@ -61,8 +58,7 @@ export class AddAuthorFormComponent implements OnInit {
 
   public selectExistingAuthor(form: FormGroup) {
     if (form.valid) {
-      this.existingAuthors = this.existingAuthors.filter((author) => author.id !== form.value.author);
-      this.authorAdd.emit(form.value.author);
+      this.addAuthor.emit(form.value.author);
       this.existingAuthorForm.reset();
       this.existingAuthorForm.markAsPristine();
       this.existingAuthorForm.markAsUntouched();

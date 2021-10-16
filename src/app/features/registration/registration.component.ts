@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { EmailValidatorDirective } from 'src/app/shared/directives/email-validator/email-validator.directive';
 import { PasswordValidatorDirective } from 'src/app/shared/directives/password-validator/password-validator.directive';
+import { AuthStateFacade } from 'src/app/store/auth/auth.facade';
 
 const NAME_MIN_LENGTH = 6;
 
@@ -14,7 +15,7 @@ const NAME_MIN_LENGTH = 6;
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
+  constructor(private formBuilder: FormBuilder, private authStateFacade: AuthStateFacade) {}
 
   public ngOnInit(): void {
     this.registrationForm = this.createForm();
@@ -42,7 +43,7 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     if (form.valid) {
-      this.authService.register(form.value);
+      this.authStateFacade.register(form.value);
     }
   }
 }

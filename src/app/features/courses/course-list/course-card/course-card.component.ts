@@ -1,20 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { AuthorsStoreService } from 'src/app/services/authors/authors-store.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Author } from 'src/app/services/authors/interfaces/author';
 import { Course } from 'src/app/services/courses/interfaces/course';
+import { AuthorsStateFacade } from 'src/app/store/authors/authors.facade';
 
 @Component({
   selector: 'app-course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
 })
-export class CourseCardComponent {
+export class CourseCardComponent implements OnInit {
   @Input() course!: Course;
 
-  authors: Author[] = [];
+  public authors: Author[] = [];
 
-  constructor(private authorsStoreService: AuthorsStoreService) {
-    this.authorsStoreService.getAll().subscribe((authors) => (this.authors = authors));
+  constructor(private authorsStateFacade: AuthorsStateFacade) {}
+
+  ngOnInit(): void {
+    this.authorsStateFacade.authors$.subscribe((authors) => (this.authors = authors));
   }
 
   public getAuthorNames(): string[] {

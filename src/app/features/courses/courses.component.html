@@ -7,7 +7,15 @@
     message="'Are you sure to delete this course?'"
   >
   </app-modal>
-  <app-search (searchByString)="searchByString($event)" [placeholder]="'Search...'" [filterOptions]="filterOptions"></app-search>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-10">
+        <app-search (searchByString)="searchByString($event)" [placeholder]="'Search...'" [filterOptions]="filterOptions"></app-search>
+      </div>
+      <div class="col-2 p-3"><app-button [btnText]="'Add new course'" [buttonSize]="'normal'" (onClick)="navigateToAddCourse()"></app-button></div>
+    </div>
+  </div>
   <div *ngIf="!isLoading; else spinner">
     <div *ngIf="courses.length > 0; else emptyMsg">
       <app-course-list
@@ -19,12 +27,19 @@
       </app-course-list>
     </div>
     <ng-template #emptyMsg>
-      <app-info
+      <app-info *ngIf="isAdmin; else notAdminInfo"
         [infoTitle]="'Your list is empty'"
         [infoDescription]="'Please use the `Add new course` button to add your first course'"
       >
-        <app-button [btnText]="'Add new course'"></app-button>
+        <app-button [btnText]="'Add new course'" (onClick)="navigateToAddCourse()"></app-button>
       </app-info>
+      <ng-template #notAdminInfo>
+        <app-info 
+        [infoTitle]="'Your list is empty'" 
+        [infoDescription]="'Please come back later for new courses'"
+        >
+        </app-info>
+      </ng-template>
     </ng-template>
   </div>
   <ng-template #spinner>

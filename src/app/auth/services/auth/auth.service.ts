@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { apiUrls, BASE_URL } from 'src/app/apiUrls';
-import { UserStoreService } from 'src/app/services/user/user-store.service';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 import { LoginPayload, RegistrationPayload } from './interfaces/payloads';
-import { LoginResponse, RegistratinResponse } from './interfaces/responses';
+import { LoginResponse, RegistrationResponse } from './interfaces/responses';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +15,7 @@ export class AuthService {
   private isAuthorised$$ = new BehaviorSubject(false);
   public isAuthorised$ = this.isAuthorised$$.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private sessionStorageService: SessionStorageService,
-    private router: Router,
-    private userStoreService: UserStoreService
-  ) {
+  constructor(private http: HttpClient, private sessionStorageService: SessionStorageService, private router: Router) {
     this.getLoginState();
   }
 
@@ -32,35 +26,19 @@ export class AuthService {
     }
   }
 
-  public login(loginData: LoginPayload): void {
-    this.http.post<LoginResponse>(BASE_URL + apiUrls.AUTH.LOGIN, loginData).subscribe((resp: LoginResponse) => {
-      if (resp.successful) {
-        this.isAuthorised$$.next(true);
-        this.sessionStorageService.setToken('bearerToken', resp.result);
-        this.router.navigate(['/courses']);
-        this.userStoreService.getMe();
-      }
-    });
+  public login(loginPayload: LoginPayload): Observable<string> {
+    return this.http
+      .post<LoginResponse>(BASE_URL + apiUrls.AUTH.LOGIN, loginPayload)
+      .pipe(map((response) => response.result));
   }
 
-  public logout(): Observable<void> {
-    return this.http.delete(BASE_URL + apiUrls.AUTH.LOGOUT).pipe(
-      map(() => {
-        this.sessionStorageService.deleteToken('bearerToken');
-        this.isAuthorised$$.next(false);
-        this.userStoreService.removeUserData();
-      })
-    );
+  public logout(): Observable<{}> {
+    return this.http.delete(BASE_URL + apiUrls.AUTH.LOGOUT);
   }
 
-  public register(registrationData: RegistrationPayload): void {
-    this.http
-      .post<RegistratinResponse>(BASE_URL + apiUrls.AUTH.REGISTER, registrationData)
-      .subscribe((resp: RegistratinResponse) => {
-        if (resp.successful) {
-          this.sessionStorageService.setToken('registrationSuccessful', 'true');
-          this.router.navigate(['/login']);
-        }
-      });
+  public register(registrationData: RegistrationPayload): Observable<string> {
+    return this.http
+      .post<RegistrationResponse>(BASE_URL + apiUrls.AUTH.REGISTER, registrationData)
+      .pipe(map(() => 'Registration successful'));
   }
 }

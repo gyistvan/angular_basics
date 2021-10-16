@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/services/courses/interfaces/course';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { UserStoreService } from 'src/app/services/user/user-store.service';
+import { AuthorsStateFacade } from 'src/app/store/authors/authors.facade';
+import { CoursesStateFacade } from 'src/app/store/courses/courses.facade';
+import { UserStateFacade } from 'src/app/store/user/user.facade';
 
 const FILTER_OPTIONS = [
   { filter: 'title', name: 'Title' },
@@ -22,16 +24,20 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private modalService: ModalService,
-    private uesrStoreService: UserStoreService,
-    private coursesStoreService: CoursesStoreService
+    private UserStateFacade: UserStateFacade,
+    private coursesStateFacade: CoursesStateFacade,
+    private authorsStateFacade: AuthorsStateFacade,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.uesrStoreService.isAdmin$.subscribe((isAdmin) => {
+    this.authorsStateFacade.getAuthors();
+    this.coursesStateFacade.getAllCourses();
+    this.UserStateFacade.isAdmin$.subscribe((isAdmin) => {
       this.isAdmin = isAdmin;
     });
-    this.coursesStoreService.courses$.subscribe((courses) => (this.courses = courses));
-    this.coursesStoreService.isLoading$.subscribe((isLoading) => (this.isLoading = isLoading));
+    this.coursesStateFacade.allCourses$.subscribe((courses) => (this.courses = courses));
+    this.coursesStateFacade.isAllCoursesLoading$.subscribe((isLoading) => (this.isLoading = isLoading));
   }
 
   public courses!: Course[];
@@ -45,14 +51,19 @@ export class CoursesComponent implements OnInit {
     return this.courses[courseIndex].title;
   }
 
-  public searchByString(str: string): void {
-    this.coursesStoreService.filterCourse(str).subscribe((courses) => {
+  public searchByString(filterStr: string): void {
+    this.coursesStateFacade.getFilteredCourses(filterStr);
+    this.coursesStateFacade.courses$.subscribe((courses) => {
       this.courses = courses;
     });
   }
 
   public deleteCourse(id: string): void {
-    this.coursesStoreService.deleteCourse(id);
+    this.coursesStateFacade.deleteCourse(id);
+  }
+
+  public navigateToAddCourse(): void {
+    this.router.navigate(['/course/add']);
   }
 
   public openModal(id: string): void {
