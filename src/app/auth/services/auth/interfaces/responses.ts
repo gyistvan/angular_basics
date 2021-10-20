@@ -9,7 +9,7 @@ export interface UserResponse {
   email: string;
 }
 
-export interface RegistratinResponse {
+export interface RegistrationResponse {
   result: string;
   successful: boolean;
 }

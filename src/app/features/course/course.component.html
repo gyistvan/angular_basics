@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <app-add-author-form [selectedAuthors]="CForm.value.authors" (authorAdd)="addAuthor($event)"></app-add-author-form>
+                        <app-add-author-form [selectedAuthors]="CForm.value.authors" (addAuthor)="addAuthor($event)"></app-add-author-form>
                         <label for="duration" class="form-label">duration</label>
                         <input id="duration" class="form-control" type="text"
                             [ngClass]="{ 'is-invalid': (duration.touched || CForm.submitted) && (duration.errors?.required)}"

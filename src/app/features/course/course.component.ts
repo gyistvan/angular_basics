@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CoursesStoreService } from 'src/app/services/courses/courses-store.service';
+import { ActivatedRoute } from '@angular/router';
+import { CoursePayload } from 'src/app/services/courses/interfaces/coursePayload';
+import { AuthorsStateFacade } from 'src/app/store/authors/authors.facade';
+import { CoursesStateFacade } from 'src/app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-course',
@@ -16,11 +18,12 @@ export class CourseComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private coursesStoreService: CoursesStoreService,
-    private router: Router
+    private coursesStateFacade: CoursesStateFacade,
+    private authorsStateFacade: AuthorsStateFacade
   ) {}
 
   public ngOnInit(): void {
+    this.authorsStateFacade.getAuthors();
     this.courseForm = this.createForm();
     let courseId = this.activatedRoute.snapshot.paramMap.get('id');
     if (courseId) {
@@ -29,16 +32,19 @@ export class CourseComponent implements OnInit {
   }
 
   private getCourse(courseId: string): void {
-    this.coursesStoreService.getCourse(courseId).subscribe((course) => {
-      this.courseForm.patchValue({
-        title: course.title,
-        description: course.description,
-        duration: course.duration,
-      });
-      this.courseId = course.id;
-      course.authors.forEach((authorId) => {
-        this.addAuthor(authorId);
-      });
+    this.coursesStateFacade.getSingleCourse(courseId);
+    this.coursesStateFacade.course$.subscribe((course) => {
+      if (course) {
+        this.courseForm.patchValue({
+          title: course.title,
+          description: course.description,
+          duration: course.duration,
+        });
+        this.courseId = course.id;
+        course.authors.forEach((authorId) => {
+          this.addAuthor(authorId);
+        });
+      }
     });
   }
 
@@ -79,21 +85,17 @@ export class CourseComponent implements OnInit {
 
   onFormSubmit(form: FormGroup) {
     if (form.valid) {
-      let data = {
+      let course: CoursePayload = {
         title: this.title.value,
         description: this.description.value,
         duration: parseInt(this.duration.value),
         authors: this.authors.value,
       };
       if (this.courseId) {
-        this.coursesStoreService.editCourse(this.courseId, data).subscribe(this.redirectToCourses.bind(this));
+        this.coursesStateFacade.editCourse(course, this.courseId);
       } else {
-        this.coursesStoreService.createCourse(data).subscribe(this.redirectToCourses.bind(this));
+        this.coursesStateFacade.createCourse(course);
       }
     }
-  }
-
-  redirectToCourses(): void {
-    this.router.navigate([`/courses`]);
   }
 }

@@ -17,9 +17,9 @@ export class CoursesService {
     return this.http.get<GetCoursesResponse>(BASE_URL + apiUrls.COURSES.GET_ALL).pipe(map(({ result }) => result));
   }
 
-  public filterCourses(filterStr: string): Observable<Course[]> {
+  public filterCourses(filterAction: { filterStr: string }): Observable<Course[]> {
     return this.http
-      .get<GetCoursesResponse>(BASE_URL + apiUrls.COURSES.FILTER_COURSES + filterStr)
+      .get<GetCoursesResponse>(BASE_URL + apiUrls.COURSES.FILTER_COURSES + filterAction.filterStr)
       .pipe(map(({ result }) => result));
   }
 
@@ -36,9 +36,9 @@ export class CoursesService {
     return this.http.put<any>(BASE_URL + apiUrls.COURSES.UPDATE_COURSE + id, course);
   }
 
-  public getCourse(id: string): Observable<Course> {
+  public getCourse(getSingleCourseAction: { id: string }): Observable<Course> {
     return this.http
-      .get<GetCourseResponse>(BASE_URL + apiUrls.COURSES.GET_COURSE + id)
+      .get<GetCourseResponse>(BASE_URL + apiUrls.COURSES.GET_COURSE + getSingleCourseAction.id)
       .pipe(map(({ result }) => result));
   }
 
